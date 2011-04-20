@@ -1,0 +1,23 @@
+body{
+	position:relative;
+}
+
+#loading {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	z-index: 1104;
+	display: block;
+}
+
+#loading div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 40px;
+	height: 480px;
+	background-image: url('fancy_loading.png');
+}
