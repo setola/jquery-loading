@@ -39,6 +39,6 @@
 				}, settings.interval);
 			}
 		});
-	}
+	};
 	
 })(jQuery);
