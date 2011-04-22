@@ -17,7 +17,18 @@
 			/**
 			 * the selector of the inner 'mobile' container
 			 */
-			innerSel		:		'div'
+			innerSel		:		'div',
+			/**
+			 * json with attributes of the inner 'mobile' element
+			 */
+			inner				:		{},
+			/**
+			 * the direction of the animation horizontal|vertical
+			 * default is horizontal, this means that every frame
+			 * is under the previuos one; if horizontal the next frame
+			 * is right side of the previous
+			 */
+			animation		:		'vertical'
 		};
 		
   	return this.each(function(){
@@ -26,15 +37,28 @@
 			}
 			
 			var inner = $(this).find(settings.innerSel);
-			//TODO: if inner is empty add a new div
+			if (inner.length == 0) {
+				inner = $('<div>', settings.inner);
+				$(this).prepend(inner);
+		  }
+			
 			if ($(this).is(':visible')){//don't waste resurces while this is not visible
 				setInterval(function(){
-//					var offset = 40;
 					if(inner){
-						if(inner.height()+inner.position().top-settings.offset!=0)
-							inner.css('top',(inner.position().top-settings.offset)+'px');
-						else
-							inner.css('top','0px');
+						switch (settings.animation) {
+							case 'horizontal':
+								if(inner.width()+inner.position().left-settings.offset!=0)
+									inner.css('left',(inner.position().left-settings.offset)+'px');
+								else
+									inner.css('left','0px');
+							break;
+							default:
+								if(inner.height()+inner.position().top-settings.offset!=0)
+									inner.css('top',(inner.position().top-settings.offset)+'px');
+								else
+									inner.css('top','0px');
+							break;
+						}
 					}
 				}, settings.interval);
 			}
